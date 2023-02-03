@@ -27,7 +27,7 @@ async function reloadMichis() {
 
 }
 async function loadFavoritesMichis() {
-  const response = await fetch(`${API}v1/favourites`);
+  const response = await fetch(`${API}v1/favourites`,options);
   const data = await response.json();
   console.log({"favorites":data})
 
@@ -35,6 +35,26 @@ async function loadFavoritesMichis() {
     spanError.innerHTML = "Hubo un error: " + res.status + data.message;
   }
 }
+async function saveFavouriteMichis() {
+  const res = await fetch(`${API}v1/favourites`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      image_id: 'dje'
+    }),
+  });
+  const data = await res.json();
+
+  console.log('Save')
+  console.log(res)
+
+  if (res.status !== 200) {
+    spanError.innerHTML = "Hubo un error: " + res.status + data.message;
+  }
+}
+
 
 reloadMichis();
 loadFavoritesMichis();
