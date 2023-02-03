@@ -26,10 +26,10 @@ async function reloadMichis() {
 
     img1.src = data[0].url;
     img2.src = data[1].url;
-    console.log(typeof(data[0].id));
+    console.log(data[0].id);
 
-    btn1.onclick = () => saveFavouriteMichi(data[0].id);
     btn2.onclick = () => saveFavouriteMichi(data[1].id);
+    btn2.onclick = () => saveFavouriteMichi(data[0].id);
   }
 
 }
@@ -41,8 +41,15 @@ async function loadFavoritesMichis() {
   if (response.status !== 200) {
     spanError.innerHTML = "Hubo un error: " + response.status + data.message;
   }else{
+    const section = document.getElementById('favoriteMichis')
+    section.innerHTML = "";
+
+    const h2 = document.createElement('h2');
+    const h2Text = document.createTextNode('Michis favoritos');
+    h2.appendChild(h2Text);
+    section.appendChild(h2);
+
     data.forEach(michi => {
-      const section = document.getElementById('favoriteMichis')
       const article = document.createElement('article');
       const img = document.createElement('img');
       const btn = document.createElement('button');
@@ -51,6 +58,7 @@ async function loadFavoritesMichis() {
       img.src = michi.image.url;
       img.width = 150;
       btn.appendChild(btnText);
+      btn.onclick = () => deleteFavouriteMichi(michi.id);
       article.appendChild(img);
       article.appendChild(btn);
       section.appendChild(article);
@@ -76,6 +84,26 @@ async function saveFavouriteMichi(id) {
 
   if (res.status !== 200) {
     spanError.innerHTML = "Hubo un error: " + response.status + data.message;
+  }else {
+    console.log('Michi guardado en favoritos')
+    loadFavoritesMichis();
+  }
+}
+
+async function deleteFavouriteMichi(id) {
+  const res = await fetch(`${API}/v1/favourites/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'x-api-key': 'live_koCj0H2g9wNPIVErd1wfmGaDllbZDqMEQh9qmQiEI9uJalzfA03DGzmZk0m1D3lZ'
+    },
+  });
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    spanError.innerHTML = "Hubo un error: " + res.status + data.message;
+  } else {
+    console.log('Michi eliminado de favoritos')
+    loadFavoritesMichis();
   }
 }
 
