@@ -1,6 +1,7 @@
-console.log('Hello, world')
 
 const API = 'https://api.thecatapi.com/';
+const spanError = document.getElementById("error");
+
 
 const options = {
   method: 'GET',
@@ -9,20 +10,31 @@ const options = {
     'x-api-key': 'live_koCj0H2g9wNPIVErd1wfmGaDllbZDqMEQh9qmQiEI9uJalzfA03DGzmZk0m1D3lZ'
   }
 }
-async function reload() {
+async function reloadMichis() {
   const response = await fetch(`${API}v1/images/search?limit=3`,options);
   const data = await response.json();
   console.log({"reload":data});
 
-  const img1 = document.getElementById('img1');
-  const img2 = document.getElementById('img2');
-  const img3 = document.getElementById('img3');
-  
+  if (response.status !== 200) {
+    spanError.innerHTML = "Hubo un error: " + res.status;
+  } else {
+    const img1 = document.getElementById('img1');
+    const img2 = document.getElementById('img2');
 
-  img1.src = data[0].url;
-  img2.src = data[1].url;
-  img3.src = data[2].url;
+    img1.src = data[0].url;
+    img2.src = data[1].url;
+  }
 
 }
+async function loadFavoritesMichis() {
+  const response = await fetch(`${API}v1/favourites`);
+  const data = await response.json();
+  console.log({"favorites":data})
 
-reload();
+  if (response.status !== 200) {
+    spanError.innerHTML = "Hubo un error: " + res.status + data.message;
+  }
+}
+
+reloadMichis();
+loadFavoritesMichis();
