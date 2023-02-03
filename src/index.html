@@ -1,57 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gatitos aleatorios</title>
+    <meta charset="UTF-8">
+    <meta name="Description" content="Extended Description">
+    <meta name="robots" content="index,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Consumo de APIs</title>
+
+    <!-- Utilizando el CDN de la biblioteca Axios -->
+    <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script defer src="./assets/main.js"></script>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 48px;
+        }
+        img {
+            display: block;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .random-img {
+            width: 400px;
+            height: auto;
+        }
+        button {
+            margin: 16px 0;
+        }
+        .random-cats-sec,
+        .favorites-cats-sec {
+            padding: 25px 25px;
+            border: solid 1px black;
+            border-radius: 25px;
+        }
+        .error-app {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
-  <h1>Michis app</h1>
-  <span id="error"></span>
+    <div class="container">
+        <h1>Gatos App</h1>
 
-  <section id="randomMichis">
-    <h2>Michis aleatorios</h2>
+        <span class="error-app" id="error"></span>
 
-    <article>
-      <img id="img1" width="150" alt="Foto gatito aleatorio">
-      <button>Guardar michi en favoritos</button>
-    </article>
+        <section class="random-cats-sec" id="random-cats">
+            <h2>Gatos Aleatorios</h2>
+        </section>
+        <button id="reload">Recargar</button>
 
-    <article>
-      <img id="img2" width="150" alt="Foto gatito aleatorio">
-      <button>Guardar michi en favoritos</button>
-    </article>
+        <section class="favorites-cats-sec" id="favorites-cats">
+            <h2>Gatos Favoritos</h2>
+        </section>
 
-    <!-- <article>
-      <img id="img3" width="150" alt="Foto gatito aleatorio">
-      <button>Guardar michi en favoritos</button>
-    </article> -->
-
-
-    <button onclick="reloadMichis()">Recargar</button>
-  </section>
-
-  <section id="favoriteMichis">
-    <h2>Michis favoritos</h2>
-
-    <article>
-      <img id="img1" width="150" alt="Foto gatito aleatorio">
-      <button id="btn1">
-        Guardar michi en favoritos
-      </button>
-    </article>
-  </section>
-  
-  <article>
-    <img id="img2" width="150" alt="Foto gatito aleatorio">
-    <button>Guardar michi en favoritos</button>
-    <button id="btn2">
-      Guardar michi en favoritos
-    </button>
-  </article>
-  
-
-  <script src="./assets/main.js"></script>
+    </div>
 </body>
+
 </html>
