@@ -2,8 +2,15 @@ console.log('Hello, world')
 
 const API = 'https://api.thecatapi.com/';
 
+const options = {
+  method: 'GET',
+  headers: {
+    // 'Content-Type': 'application/json',
+    'x-api-key': 'live_koCj0H2g9wNPIVErd1wfmGaDllbZDqMEQh9qmQiEI9uJalzfA03DGzmZk0m1D3lZ'
+  }
+}
 async function reload() {
-  const response = await fetch(`${API}v1/images/search?limit=3`);
+  const response = await fetch(`${API}v1/images/search?limit=3`,options);
   const data = await response.json();
   console.log({"reload":data});
 
